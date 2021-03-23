@@ -127,6 +127,14 @@ func StopAt(word string) ParserOption {
 	return func(p *Parser) { p.stopAt = []byte(word) }
 }
 
+// RecoverErrors allows the parser to allow skipping up to a maximum number of
+// errors in the given input.
+//
+// Currently, this only implies inserting
+func RecoverErrors(maximum int) ParserOption {
+	return func(p *Parser) { p.recoverErrorsMax = maximum }
+}
+
 // NewParser allocates a new Parser and applies any number of options.
 func NewParser(options ...ParserOption) *Parser {
 	p := &Parser{}
@@ -354,6 +362,9 @@ type Parser struct {
 
 	stopAt []byte
 
+	recoveredErrors  int
+	recoverErrorsMax int
+
 	forbidNested bool
 
 	// list of pending heredoc bodies
@@ -419,6 +430,7 @@ func (p *Parser) reset() {
 	p.err, p.readErr = nil, nil
 	p.quote, p.forbidNested = noState, false
 	p.openStmts = 0
+	p.recoveredErrors = 0
 	p.heredocs, p.buriedHdocs = p.heredocs[:0], 0
 	p.parsingDoc = false
 	p.openBquotes, p.buriedBquotes = 0, 0
@@ -660,6 +672,14 @@ func (p *Parser) gotRsrv(val string) (Pos, bool) {
 	return pos, false
 }
 
+func (p *Parser) recoverError() bool {
+	if p.recoveredErrors < p.recoverErrorsMax {
+		p.recoveredErrors++
+		return true
+	}
+	return false
+}
+
 func readableStr(s string) string {
 	// don't quote tokens like & or }
 	if s != "" && s[0] >= 'a' && s[0] <= 'z' {
@@ -669,6 +689,9 @@ func readableStr(s string) string {
 }
 
 func (p *Parser) followErr(pos Pos, left, right string) {
+	if p.recoverError() {
+		return
+	}
 	leftStr := readableStr(left)
 	p.posErr(pos, "%s must be followed by %s", leftStr, right)
 }
@@ -720,11 +743,17 @@ func (p *Parser) stmtEnd(n Node, start, end string) Pos {
 }
 
 func (p *Parser) quoteErr(lpos Pos, quote token) {
+	if p.recoverError() {
+		return
+	}
 	p.posErr(lpos, "reached %s without closing quote %s",
 		p.tok.String(), quote)
 }
 
 func (p *Parser) matchingErr(lpos Pos, left, right interface{}) {
+	if p.recoverError() {
+		return
+	}
 	p.posErr(lpos, "reached %s without matching %s with %s",
 		p.tok.String(), left, right)
 }

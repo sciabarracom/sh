@@ -52,6 +52,8 @@ var (
 
 	toJSON = flag.Bool("tojson", false, "")
 
+	expRecover = flag.Int("exp.recover", 0, "")
+
 	parser            *syntax.Parser
 	printer           *syntax.Printer
 	readBuf, writeBuf bytes.Buffer
@@ -142,6 +144,8 @@ For more information, see 'man shfmt' and https://github.com/mvdan/sh.
 	})
 	parser = syntax.NewParser(syntax.KeepComments(true))
 	printer = syntax.NewPrinter(syntax.Minify(*minify))
+
+	syntax.RecoverErrors(*expRecover)(parser)
 
 	if !useEditorConfig {
 		if *posix {
