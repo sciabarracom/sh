@@ -2469,36 +2469,51 @@ func TestParseRecoverErrors(t *testing.T) {
 	tests := []struct {
 		src string
 
-		wantErr        bool
-		wantInvalidPos int
+		wantErr          bool
+		wantRecoveredPos int
 	}{
+		{src: "foo;"},
+		{src: "foo"},
 		{
-			src: "foo;",
+			src:              "'incomp",
+			wantRecoveredPos: 1,
 		},
 		{
-			src:            "foo",
-			wantInvalidPos: 1,
+			src:              "foo; 'incomp",
+			wantRecoveredPos: 1,
 		},
 		{
-			src:            "'incomp",
-			wantInvalidPos: 1,
+			src:              "(incomp",
+			wantRecoveredPos: 1,
 		},
 		{
-			src:            "foo; 'incomp",
-			wantInvalidPos: 1,
+			src:              "(incomp; foo",
+			wantRecoveredPos: 1,
 		},
 		{
-			src:            "(incomp",
-			wantInvalidPos: 2,
+			src:              "$(incomp",
+			wantRecoveredPos: 1,
+		},
+		// {
+		// 	src:              "((incomp",
+		// 	wantRecoveredPos: 1,
+		// },
+		{
+			src:              "if foo; then bar",
+			wantRecoveredPos: 1,
 		},
 		{
-			src:            "(incomp; foo",
-			wantInvalidPos: 2,
+			src:              `"incomp`,
+			wantRecoveredPos: 1,
 		},
 		{
-			src:            "incomp >",
-			wantInvalidPos: 1,
+			src:              "`incomp",
+			wantRecoveredPos: 1,
 		},
+		// {
+		// 	src:              "incomp >",
+		// 	wantRecoveredPos: 1,
+		// },
 		{
 			src:     "badsyntax)",
 			wantErr: true,
@@ -2514,39 +2529,39 @@ func TestParseRecoverErrors(t *testing.T) {
 			} else if !tc.wantErr && err != nil {
 				t.Fatalf("Unexpected error in %q with RecoverErrors(3): %v", tc.src, err)
 			}
-			gotInvalidPos := countInvalidPositions(reflect.ValueOf(f))
-			if gotInvalidPos != tc.wantInvalidPos {
-				t.Fatalf("want %d invalid positions in %q, got %d", tc.wantInvalidPos, tc.src, gotInvalidPos)
+			gotRecoveredPos := countRecoveredPositions(reflect.ValueOf(f))
+			if gotRecoveredPos != tc.wantRecoveredPos {
+				t.Fatalf("want %d recovered positions in %q, got %d", tc.wantRecoveredPos, tc.src, gotRecoveredPos)
 			}
 
 		})
 	}
 }
 
-func countInvalidPositions(x reflect.Value) int {
+func countRecoveredPositions(x reflect.Value) int {
 	switch x.Kind() {
 	case reflect.Interface:
-		return countInvalidPositions(x.Elem())
+		return countRecoveredPositions(x.Elem())
 	case reflect.Ptr:
 		if !x.IsNil() {
-			return countInvalidPositions(x.Elem())
+			return countRecoveredPositions(x.Elem())
 		}
 	case reflect.Slice:
 		n := 0
 		for i := 0; i < x.Len(); i++ {
-			n += countInvalidPositions(x.Index(i))
+			n += countRecoveredPositions(x.Index(i))
 		}
 		return n
 	case reflect.Struct:
 		if pos, ok := x.Interface().(Pos); ok {
-			if !pos.IsValid() {
+			if pos.IsRecovered() {
 				return 1
 			}
 			return 0
 		}
 		n := 0
 		for i := 0; i < x.NumField(); i++ {
-			n += countInvalidPositions(x.Field(i))
+			n += countRecoveredPositions(x.Field(i))
 		}
 		return n
 	}

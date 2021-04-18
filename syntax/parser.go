@@ -689,9 +689,6 @@ func readableStr(s string) string {
 }
 
 func (p *Parser) followErr(pos Pos, left, right string) {
-	if p.recoverError() {
-		return
-	}
 	leftStr := readableStr(left)
 	p.posErr(pos, "%s must be followed by %s", leftStr, right)
 }
@@ -709,6 +706,9 @@ func (p *Parser) follow(lpos Pos, left string, tok token) {
 func (p *Parser) followRsrv(lpos Pos, left, val string) Pos {
 	pos, ok := p.gotRsrv(val)
 	if !ok {
+		// if p.recoverError() {
+		// 	return Pos{offs: recoveredOffs}
+		// }
 		p.followErr(lpos, left, fmt.Sprintf("%q", val))
 	}
 	return pos
@@ -737,23 +737,20 @@ func (p *Parser) followWordTok(tok token, pos Pos) *Word {
 func (p *Parser) stmtEnd(n Node, start, end string) Pos {
 	pos, ok := p.gotRsrv(end)
 	if !ok {
+		if p.recoverError() {
+			return Pos{offs: recoveredOffs}
+		}
 		p.posErr(n.Pos(), "%s statement must end with %q", start, end)
 	}
 	return pos
 }
 
 func (p *Parser) quoteErr(lpos Pos, quote token) {
-	if p.recoverError() {
-		return
-	}
 	p.posErr(lpos, "reached %s without closing quote %s",
 		p.tok.String(), quote)
 }
 
 func (p *Parser) matchingErr(lpos Pos, left, right interface{}) {
-	if p.recoverError() {
-		return
-	}
 	p.posErr(lpos, "reached %s without matching %s with %s",
 		p.tok.String(), left, right)
 }
@@ -761,6 +758,9 @@ func (p *Parser) matchingErr(lpos Pos, left, right interface{}) {
 func (p *Parser) matched(lpos Pos, left, right token) Pos {
 	pos := p.pos
 	if !p.got(right) {
+		if p.recoverError() {
+			return Pos{offs: recoveredOffs}
+		}
 		p.matchingErr(lpos, left, right)
 	}
 	return pos
@@ -1153,6 +1153,10 @@ func (p *Parser) wordPart() WordPart {
 				p.litBs = append(p.litBs, '\\', '\n')
 			case utf8.RuneSelf:
 				p.tok = _EOF
+				if p.recoverError() {
+					sq.Right = Pos{offs: recoveredOffs}
+					return sq
+				}
 				p.quoteErr(sq.Pos(), sglQuote)
 				return nil
 			}
@@ -1190,7 +1194,11 @@ func (p *Parser) wordPart() WordPart {
 		// Like above, the lexer didn't call p.rune for us.
 		p.rune()
 		if !p.got(bckQuote) {
-			p.quoteErr(cs.Pos(), bckQuote)
+			if p.recoverError() {
+				cs.Right = Pos{offs: recoveredOffs}
+			} else {
+				p.quoteErr(cs.Pos(), bckQuote)
+			}
 		}
 		return cs
 	case globQuest, globStar, globPlus, globAt, globExcl:
@@ -1234,7 +1242,11 @@ func (p *Parser) dblQuoted() *DblQuoted {
 	p.quote = old
 	q.Right = p.pos
 	if !p.got(dblQuote) {
-		p.quoteErr(q.Pos(), dblQuote)
+		if p.recoverError() {
+			q.Right = Pos{offs: recoveredOffs}
+		} else {
+			p.quoteErr(q.Pos(), dblQuote)
+		}
 	}
 	return q
 }

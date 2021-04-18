@@ -43,13 +43,14 @@ func encode(val reflect.Value) (interface{}, string) {
 		typ := val.Type()
 		for i := 0; i < val.NumField(); i++ {
 			ftyp := typ.Field(i)
-			if ftyp.Type.Name() == "Pos" {
-				continue
-			}
 			if !ast.IsExported(ftyp.Name) {
 				continue
 			}
 			fval := val.Field(i)
+			if ftyp.Type.Name() == "Pos" {
+				m[ftyp.Name] = translatePos(fval)
+				continue
+			}
 			v, _ := encode(fval)
 			m[ftyp.Name] = v
 		}
@@ -73,6 +74,12 @@ func encode(val reflect.Value) (interface{}, string) {
 }
 
 func translatePos(val reflect.Value) map[string]interface{} {
+	if val.MethodByName("IsRecovered").Call(nil)[0].Bool() {
+		return map[string]interface{}{"IsRecovered": true}
+	}
+	if !val.MethodByName("IsValid").Call(nil)[0].Bool() {
+		return map[string]interface{}{"IsValid": false}
+	}
 	return map[string]interface{}{
 		"Offset": val.MethodByName("Offset").Call(nil)[0].Uint(),
 		"Line":   val.MethodByName("Line").Call(nil)[0].Uint(),
