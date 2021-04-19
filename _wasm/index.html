@@ -1,0 +1,27 @@
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<script src="wasm_exec.js"></script>
+		<script>
+			const go = new Go();
+			WebAssembly.instantiateStreaming(fetch("parser.wasm"), go.importObject).then((result) => {
+				go.run(result.instance);
+
+				let inputs = [
+					'git push',
+					'git push ',
+					'echo aaa bbb ccc; git push ',
+					<!-- TODO 'echo hello world >', -->
+					'echo $var',
+					"echo '$var'",
+				];
+				for (const input of inputs) {
+					console.log("Parsing:", JSON.stringify(input))
+					let parsed = figParse(input);
+					console.log(parsed);
+				}
+			});
+		</script>
+	</head>
+	<body></body>
+</html>
