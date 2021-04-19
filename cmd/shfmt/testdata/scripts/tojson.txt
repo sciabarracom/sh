@@ -19,16 +19,12 @@ cmp stdout comment.sh.json
 -- empty.sh.json --
 {
 	"End": {
-		"Col": 0,
-		"Line": 0,
-		"Offset": 0
+		"IsValid": false
 	},
 	"Last": [],
 	"Name": "\u003cstandard input\u003e",
 	"Pos": {
-		"Col": 0,
-		"Line": 0,
-		"Offset": 0
+		"IsValid": false
 	},
 	"Stmts": []
 }
@@ -72,7 +68,17 @@ foo
 									"Offset": 0
 								},
 								"Type": "Lit",
-								"Value": "foo"
+								"Value": "foo",
+								"ValueEnd": {
+									"Col": 4,
+									"Line": 1,
+									"Offset": 3
+								},
+								"ValuePos": {
+									"Col": 1,
+									"Line": 1,
+									"Offset": 0
+								}
 							}
 						],
 						"Pos": {
@@ -108,7 +114,15 @@ foo
 				"Line": 1,
 				"Offset": 0
 			},
-			"Redirs": []
+			"Position": {
+				"Col": 1,
+				"Line": 1,
+				"Offset": 0
+			},
+			"Redirs": [],
+			"Semicolon": {
+				"IsValid": false
+			}
 		}
 	]
 }
@@ -137,10 +151,20 @@ foo
 					"Line": 1,
 					"Offset": 5
 				},
+				"Left": {
+					"Col": 1,
+					"Line": 1,
+					"Offset": 0
+				},
 				"Pos": {
 					"Col": 1,
 					"Line": 1,
 					"Offset": 0
+				},
+				"Right": {
+					"Col": 4,
+					"Line": 1,
+					"Offset": 3
 				},
 				"Type": "ArithmCmd",
 				"Unsigned": false,
@@ -163,7 +187,17 @@ foo
 								"Offset": 2
 							},
 							"Type": "Lit",
-							"Value": "2"
+							"Value": "2",
+							"ValueEnd": {
+								"Col": 4,
+								"Line": 1,
+								"Offset": 3
+							},
+							"ValuePos": {
+								"Col": 3,
+								"Line": 1,
+								"Offset": 2
+							}
 						}
 					],
 					"Pos": {
@@ -187,7 +221,15 @@ foo
 				"Line": 1,
 				"Offset": 0
 			},
-			"Redirs": []
+			"Position": {
+				"Col": 1,
+				"Line": 1,
+				"Offset": 0
+			},
+			"Redirs": [],
+			"Semicolon": {
+				"IsValid": false
+			}
 		}
 	]
 }
@@ -206,6 +248,11 @@ foo
 				"Col": 2,
 				"Line": 1,
 				"Offset": 1
+			},
+			"Hash": {
+				"Col": 1,
+				"Line": 1,
+				"Offset": 0
 			},
 			"Pos": {
 				"Col": 1,
