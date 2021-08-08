@@ -3701,5 +3701,4 @@ func TestRunnerSubshell(t *testing.T) {
 	if want, got := "modified", r3.Vars["CHILD"].String(); got != want {
 		t.Fatalf("wrong output:\nwant: %q\ngot:  %q", want, got)
 	}
-
 }
