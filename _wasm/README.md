@@ -9,4 +9,6 @@
 	# point your browser at the http server
 	firefox http://localhost:8000/
 
-If the Go changes, rebuild.
+If main.go changes, rebuild via the Go command and refresh the page.
+
+Tested on Go 1.16.7. Will need changes to work on Go 1.17.
