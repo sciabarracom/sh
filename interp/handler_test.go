@@ -152,11 +152,22 @@ var modCases = []struct {
 		want:    "blocklisted: glob\n",
 	},
 	{
-		name:    "BuiltinCp",
-		exec:    blocklistAllExec,
-		builtin: coreutils.Handle,
-		src:     "cp missing1 missing2",
-		want:    "foo\nsleep: blocklisted builtin",
+		name: "CoreutilCp",
+		exec: coreutils.Handle,
+		src:  "cp missing1 missing2",
+		want: "stat missing1: no such file or directory\nexit status 1",
+	},
+	{
+		name: "CoreutilUnsupported",
+		exec: coreutils.Handle,
+		src:  "du",
+		want: "skip this handler",
+	},
+	{
+		name: "CoreutilUnknown",
+		exec: coreutils.Handle,
+		src:  "unknown args",
+		want: "skip this handler",
 	},
 }
 

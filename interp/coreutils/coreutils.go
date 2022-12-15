@@ -5,10 +5,18 @@ import (
 	"fmt"
 
 	"github.com/mvdan/u-root-coreutils/pkg/cp"
+
 	"mvdan.cc/sh/v3/interp"
 )
 
-// func Handle(ctx context.Context, args []string, stdin io.Reader, stdout, stderr io.Writer) (exit int) {
+type ErrUnsupported struct {
+	Name string
+}
+
+func (e *ErrUnsupported) Error() string {
+	return fmt.Sprintf("unsupported coreutil: %q", e.Name)
+}
+
 func Handle(ctx context.Context, args []string) error {
 	hc := interp.HandlerCtx(ctx)
 	// TODO: hc.Dir, hc.Env
@@ -21,6 +29,8 @@ func Handle(ctx context.Context, args []string) error {
 		}
 		return nil
 	default:
-		return fmt.Errorf("unsupported builtin: %s", name)
+		// TODO: return ErrUnsupported for the coreutils which we know about but
+		// don't yet support
+		return interp.SkipHandle
 	}
 }

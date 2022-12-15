@@ -5,6 +5,7 @@ package interp
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -49,6 +50,8 @@ type HandlerContext struct {
 	// Stderr is the interpreter's current standard error writer.
 	Stderr io.Writer
 }
+
+var SkipHandle = errors.New("skip this handler")
 
 // CallHandlerFunc is a handler which runs on every CallExpr.
 // It is called once variable assignments and field expansion have occurred.
