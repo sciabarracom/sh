@@ -51,7 +51,7 @@ type HandlerContext struct {
 	Stderr io.Writer
 }
 
-var SkipHandle = errors.New("skip this handler")
+var SkipHandler = errors.New("skip this handler")
 
 // CallHandlerFunc is a handler which runs on every CallExpr.
 // It is called once variable assignments and field expansion have occurred.

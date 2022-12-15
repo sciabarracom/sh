@@ -900,17 +900,24 @@ func (r *Runner) call(ctx context.Context, pos syntax.Pos, args []string) {
 }
 
 func (r *Runner) exec(ctx context.Context, args []string) {
-	err := r.execHandler(r.handlerCtx(ctx), args)
-	if status, ok := IsExitStatus(err); ok {
-		r.exit = int(status)
+	for _, handler := range r.execHandlers {
+		err := handler(r.handlerCtx(ctx), args)
+		if err == SkipHandler {
+			continue
+		}
+		if status, ok := IsExitStatus(err); ok {
+			r.exit = int(status)
+			return
+		}
+		if err != nil {
+			// handler's custom fatal error
+			r.setErr(err)
+			return
+		}
+		r.exit = 0
 		return
 	}
-	if err != nil {
-		// handler's custom fatal error
-		r.setErr(err)
-		return
-	}
-	r.exit = 0
+	panic("reached end of handlers?")
 }
 
 func (r *Runner) open(ctx context.Context, path string, flags int, mode os.FileMode, print bool) (io.ReadWriteCloser, error) {

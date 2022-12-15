@@ -71,8 +71,8 @@ type Runner struct {
 	// arguments. It may be nil.
 	callHandler CallHandlerFunc
 
-	// execHandler is a function responsible for executing programs. It must be non-nil.
-	execHandler ExecHandlerFunc
+	// execHandlers are responsible for executing programs. Must not be empty.
+	execHandlers []ExecHandlerFunc
 
 	builtinHandler BuiltinHandlerFunc
 
@@ -183,7 +183,6 @@ func (r *Runner) optByFlag(flag byte) *bool {
 func New(opts ...RunnerOption) (*Runner, error) {
 	r := &Runner{
 		usedNew:        true,
-		execHandler:    DefaultExecHandler(2 * time.Second),
 		openHandler:    DefaultOpenHandler(),
 		readDirHandler: DefaultReadDirHandler(),
 		statHandler:    DefaultStatHandler(),
@@ -211,6 +210,9 @@ func New(opts ...RunnerOption) (*Runner, error) {
 	}
 	if r.stdout == nil || r.stderr == nil {
 		StdIO(r.stdin, r.stdout, r.stderr)(r)
+	}
+	if len(r.execHandlers) == 0 {
+		ExecHandlers()(r)
 	}
 	return r, nil
 }
@@ -331,10 +333,15 @@ func CallHandler(f CallHandlerFunc) RunnerOption {
 	}
 }
 
-// ExecHandler sets the command execution handler. See ExecHandlerFunc for more info.
-func ExecHandler(f ExecHandlerFunc) RunnerOption {
+// ExecHandler sets one command execution handler. See ExecHandlerFunc for more info.
+func ExecHandler(f ExecHandlerFunc) RunnerOption { return ExecHandlers(f) }
+
+// ExecHandler sets multiple command execution handlers. If a handler returns
+// SkipHandler, the next one in the list will be called. DefaultExecHandler is
+// always appended to the end of the list for the default fallback behavior.
+func ExecHandlers(handlers ...ExecHandlerFunc) RunnerOption {
 	return func(r *Runner) error {
-		r.execHandler = f
+		r.execHandlers = append(handlers[:len(handlers):len(handlers)], DefaultExecHandler(2*time.Second))
 		return nil
 	}
 }
@@ -575,7 +582,7 @@ func (r *Runner) Reset() {
 	*r = Runner{
 		Env:            r.Env,
 		callHandler:    r.callHandler,
-		execHandler:    r.execHandler,
+		execHandlers:   r.execHandlers,
 		builtinHandler: r.builtinHandler,
 		openHandler:    r.openHandler,
 		readDirHandler: r.readDirHandler,
@@ -737,7 +744,7 @@ func (r *Runner) Subshell() *Runner {
 		Dir:            r.Dir,
 		Params:         r.Params,
 		callHandler:    r.callHandler,
-		execHandler:    r.execHandler,
+		execHandlers:   r.execHandlers,
 		builtinHandler: r.builtinHandler,
 		openHandler:    r.openHandler,
 		readDirHandler: r.readDirHandler,

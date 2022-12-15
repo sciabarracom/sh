@@ -31,6 +31,6 @@ func Handle(ctx context.Context, args []string) error {
 	default:
 		// TODO: return ErrUnsupported for the coreutils which we know about but
 		// don't yet support
-		return interp.SkipHandle
+		return interp.SkipHandler
 	}
 }

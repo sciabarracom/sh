@@ -62,6 +62,7 @@ func execJustPrint(ctx context.Context, args []string) error {
 var modCases = []struct {
 	name    string
 	exec    interp.ExecHandlerFunc
+	execs   []interp.ExecHandlerFunc
 	builtin interp.BuiltinHandlerFunc
 	open    interp.OpenHandlerFunc
 	call    interp.CallHandlerFunc
@@ -152,22 +153,22 @@ var modCases = []struct {
 		want:    "blocklisted: glob\n",
 	},
 	{
-		name: "CoreutilCp",
-		exec: coreutils.Handle,
-		src:  "cp missing1 missing2",
-		want: "stat missing1: no such file or directory\nexit status 1",
+		name:  "CoreutilCp",
+		execs: []interp.ExecHandlerFunc{coreutils.Handle, blocklistAllExec},
+		src:   "cp missing1 missing2",
+		want:  "stat missing1: no such file or directory\nexit status 1",
 	},
 	{
-		name: "CoreutilUnsupported",
-		exec: coreutils.Handle,
-		src:  "du",
-		want: "skip this handler",
+		name:  "CoreutilUnsupported",
+		execs: []interp.ExecHandlerFunc{coreutils.Handle, blocklistAllExec},
+		src:   "du",
+		want:  "blocklisted: du",
 	},
 	{
-		name: "CoreutilUnknown",
-		exec: coreutils.Handle,
-		src:  "unknown args",
-		want: "skip this handler",
+		name:  "CoreutilUnknown",
+		execs: []interp.ExecHandlerFunc{coreutils.Handle, blocklistAllExec},
+		src:   "unknown args",
+		want:  "blocklisted: unknown",
 	},
 }
 
@@ -180,7 +181,10 @@ func TestRunnerHandlers(t *testing.T) {
 			file := parse(t, p, tc.src)
 			var cb concBuffer
 			r, err := interp.New(interp.StdIO(nil, &cb, &cb))
-			if tc.exec != nil {
+			// TODO: harmonize these table driven tests a bit via []RunnerOption
+			if tc.execs != nil {
+				interp.ExecHandlers(tc.execs...)(r)
+			} else if tc.exec != nil {
 				interp.ExecHandler(tc.exec)(r)
 			}
 			if tc.builtin != nil {
