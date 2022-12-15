@@ -893,7 +893,7 @@ func (r *Runner) call(ctx context.Context, pos syntax.Pos, args []string) {
 		return
 	}
 	if isBuiltin(name) {
-		r.exit = r.builtinCode(ctx, pos, name, args[1:])
+		r.exit = r.builtinCode(ctx, pos, args)
 		return
 	}
 	r.exec(ctx, args)

@@ -74,6 +74,8 @@ type Runner struct {
 	// execHandler is a function responsible for executing programs. It must be non-nil.
 	execHandler ExecHandlerFunc
 
+	builtinHandler BuiltinHandlerFunc
+
 	// openHandler is a function responsible for opening files. It must be non-nil.
 	openHandler OpenHandlerFunc
 
@@ -337,6 +339,13 @@ func ExecHandler(f ExecHandlerFunc) RunnerOption {
 	}
 }
 
+func BuiltinHandler(f BuiltinHandlerFunc) RunnerOption {
+	return func(r *Runner) error {
+		r.builtinHandler = f
+		return nil
+	}
+}
+
 // OpenHandler sets file open handler. See OpenHandlerFunc for more info.
 func OpenHandler(f OpenHandlerFunc) RunnerOption {
 	return func(r *Runner) error {
@@ -567,6 +576,7 @@ func (r *Runner) Reset() {
 		Env:            r.Env,
 		callHandler:    r.callHandler,
 		execHandler:    r.execHandler,
+		builtinHandler: r.builtinHandler,
 		openHandler:    r.openHandler,
 		readDirHandler: r.readDirHandler,
 		statHandler:    r.statHandler,
@@ -728,6 +738,7 @@ func (r *Runner) Subshell() *Runner {
 		Params:         r.Params,
 		callHandler:    r.callHandler,
 		execHandler:    r.execHandler,
+		builtinHandler: r.builtinHandler,
 		openHandler:    r.openHandler,
 		readDirHandler: r.readDirHandler,
 		statHandler:    r.statHandler,

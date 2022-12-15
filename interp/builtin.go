@@ -48,7 +48,19 @@ func atoi(s string) int {
 	return n
 }
 
-func (r *Runner) builtinCode(ctx context.Context, pos syntax.Pos, name string, args []string) int {
+func (r *Runner) builtinCode(ctx context.Context, pos syntax.Pos, args []string) int {
+	if r.builtinHandler != nil {
+		err := r.builtinHandler(r.handlerCtx(ctx), args)
+		if status, ok := IsExitStatus(err); ok {
+			return int(status)
+		}
+		if err != nil {
+			// handler's custom fatal error
+			r.setErr(err)
+		}
+		return 0
+	}
+	name, args := args[0], args[1:]
 	switch name {
 	case "true", ":":
 	case "false":
@@ -244,7 +256,7 @@ func (r *Runner) builtinCode(ctx context.Context, pos syntax.Pos, name string, a
 		if !isBuiltin(args[0]) {
 			return 1
 		}
-		return r.builtinCode(ctx, pos, args[0], args[1:])
+		return r.builtinCode(ctx, pos, args)
 	case "type":
 		anyNotFound := false
 		mode := ""
@@ -448,7 +460,7 @@ func (r *Runner) builtinCode(ctx context.Context, pos syntax.Pos, name string, a
 		}
 		if !show {
 			if isBuiltin(args[0]) {
-				return r.builtinCode(ctx, pos, args[0], args[1:])
+				return r.builtinCode(ctx, pos, args)
 			}
 			r.exec(ctx, args)
 			return r.exit
@@ -499,7 +511,7 @@ func (r *Runner) builtinCode(ctx context.Context, pos syntax.Pos, name string, a
 			if code := r.changeDir(ctx, newtop); code != 0 {
 				return code
 			}
-			r.builtinCode(ctx, syntax.Pos{}, "dirs", nil)
+			r.builtinCode(ctx, syntax.Pos{}, []string{"dirs"})
 		case 1:
 			if change {
 				if code := r.changeDir(ctx, args[0]); code != 0 {
@@ -510,7 +522,7 @@ func (r *Runner) builtinCode(ctx context.Context, pos syntax.Pos, name string, a
 				r.dirStack = append(r.dirStack, args[0])
 				swap()
 			}
-			r.builtinCode(ctx, syntax.Pos{}, "dirs", nil)
+			r.builtinCode(ctx, syntax.Pos{}, []string{"dirs"})
 		default:
 			r.errf("pushd: too many arguments\n")
 			return 2
@@ -537,7 +549,7 @@ func (r *Runner) builtinCode(ctx context.Context, pos syntax.Pos, name string, a
 			} else {
 				r.dirStack[len(r.dirStack)-1] = oldtop
 			}
-			r.builtinCode(ctx, syntax.Pos{}, "dirs", nil)
+			r.builtinCode(ctx, syntax.Pos{}, []string{"dirs"})
 		default:
 			r.errf("popd: invalid argument\n")
 			return 2

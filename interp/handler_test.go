@@ -19,6 +19,7 @@ import (
 	"time"
 
 	"mvdan.cc/sh/v3/interp"
+	"mvdan.cc/sh/v3/interp/coreutils"
 	"mvdan.cc/sh/v3/syntax"
 )
 
@@ -61,6 +62,7 @@ func execJustPrint(ctx context.Context, args []string) error {
 var modCases = []struct {
 	name    string
 	exec    interp.ExecHandlerFunc
+	builtin interp.BuiltinHandlerFunc
 	open    interp.OpenHandlerFunc
 	call    interp.CallHandlerFunc
 	readdir interp.ReadDirHandlerFunc
@@ -149,6 +151,13 @@ var modCases = []struct {
 		src:     "echo *",
 		want:    "blocklisted: glob\n",
 	},
+	{
+		name:    "BuiltinCp",
+		exec:    blocklistAllExec,
+		builtin: coreutils.Handle,
+		src:     "cp missing1 missing2",
+		want:    "foo\nsleep: blocklisted builtin",
+	},
 }
 
 func TestRunnerHandlers(t *testing.T) {
@@ -162,6 +171,9 @@ func TestRunnerHandlers(t *testing.T) {
 			r, err := interp.New(interp.StdIO(nil, &cb, &cb))
 			if tc.exec != nil {
 				interp.ExecHandler(tc.exec)(r)
+			}
+			if tc.builtin != nil {
+				interp.BuiltinHandler(tc.builtin)(r)
 			}
 			if tc.open != nil {
 				interp.OpenHandler(tc.open)(r)

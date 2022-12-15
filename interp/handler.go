@@ -80,6 +80,8 @@ type CallHandlerFunc func(ctx context.Context, args []string) ([]string, error)
 // Any other error will halt the Runner.
 type ExecHandlerFunc func(ctx context.Context, args []string) error
 
+type BuiltinHandlerFunc func(ctx context.Context, args []string) error
+
 // DefaultExecHandler returns the ExecHandlerFunc used by default.
 // It finds binaries in PATH and executes them.
 // When context is cancelled, an interrupt signal is sent to running processes.
