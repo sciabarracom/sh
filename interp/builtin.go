@@ -49,17 +49,6 @@ func atoi(s string) int {
 }
 
 func (r *Runner) builtinCode(ctx context.Context, pos syntax.Pos, args []string) int {
-	if r.builtinHandler != nil {
-		err := r.builtinHandler(r.handlerCtx(ctx), args)
-		if status, ok := IsExitStatus(err); ok {
-			return int(status)
-		}
-		if err != nil {
-			// handler's custom fatal error
-			r.setErr(err)
-		}
-		return 0
-	}
 	name, args := args[0], args[1:]
 	switch name {
 	case "true", ":":

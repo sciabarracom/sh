@@ -63,7 +63,6 @@ var modCases = []struct {
 	name    string
 	exec    interp.ExecHandlerFunc
 	execs   []interp.ExecHandlerFunc
-	builtin interp.BuiltinHandlerFunc
 	open    interp.OpenHandlerFunc
 	call    interp.CallHandlerFunc
 	readdir interp.ReadDirHandlerFunc
@@ -186,9 +185,6 @@ func TestRunnerHandlers(t *testing.T) {
 				interp.ExecHandlers(tc.execs...)(r)
 			} else if tc.exec != nil {
 				interp.ExecHandler(tc.exec)(r)
-			}
-			if tc.builtin != nil {
-				interp.BuiltinHandler(tc.builtin)(r)
 			}
 			if tc.open != nil {
 				interp.OpenHandler(tc.open)(r)
