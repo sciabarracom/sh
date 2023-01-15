@@ -71,10 +71,10 @@ type Runner struct {
 	// arguments. It may be nil.
 	callHandler CallHandlerFunc
 
-	// execHandlers are responsible for executing programs. Must not be empty.
-	execHandlers []ExecHandlerFunc
+	// execHandler is responsible for executing programs. It must not be nil.
+	execHandler ExecHandlerFunc
 
-	// openHandler is a function responsible for opening files. It must be non-nil.
+	// openHandler is a function responsible for opening files. It must not be nil.
 	openHandler OpenHandlerFunc
 
 	// readDirHandler is a function responsible for reading directories during
@@ -181,6 +181,7 @@ func (r *Runner) optByFlag(flag byte) *bool {
 func New(opts ...RunnerOption) (*Runner, error) {
 	r := &Runner{
 		usedNew:        true,
+		execHandler:    DefaultExecHandler(2 * time.Second),
 		openHandler:    DefaultOpenHandler(),
 		readDirHandler: DefaultReadDirHandler(),
 		statHandler:    DefaultStatHandler(),
@@ -208,9 +209,6 @@ func New(opts ...RunnerOption) (*Runner, error) {
 	}
 	if r.stdout == nil || r.stderr == nil {
 		StdIO(r.stdin, r.stdout, r.stderr)(r)
-	}
-	if len(r.execHandlers) == 0 {
-		ExecHandlers()(r)
 	}
 	return r, nil
 }
@@ -331,15 +329,25 @@ func CallHandler(f CallHandlerFunc) RunnerOption {
 	}
 }
 
-// ExecHandler sets one command execution handler. See ExecHandlerFunc for more info.
-func ExecHandler(f ExecHandlerFunc) RunnerOption { return ExecHandlers(f) }
-
-// ExecHandler sets multiple command execution handlers. If a handler returns
-// SkipHandler, the next one in the list will be called. DefaultExecHandler is
-// always appended to the end of the list for the default fallback behavior.
-func ExecHandlers(handlers ...ExecHandlerFunc) RunnerOption {
+// ExecHandler sets one command execution handler,
+// which replaces DefaultExecHandler(2 * time.Second).
+//
+// Deprecated: use ExecHandlers instead, which allows for middleware handlers.
+func ExecHandler(f ExecHandlerFunc) RunnerOption {
 	return func(r *Runner) error {
-		r.execHandlers = append(handlers[:len(handlers):len(handlers)], DefaultExecHandler(2*time.Second))
+		r.execHandler = f
+		return nil
+	}
+}
+
+// ExecHandlers
+func ExecHandlers(middlewares ...func(ExecHandlerFunc) ExecHandlerFunc) RunnerOption {
+	return func(r *Runner) error {
+		// TODO: multiple calls will end up in the wrong order
+		for i := len(middlewares) - 1; i >= 0; i-- {
+			middleware := middlewares[i]
+			r.execHandler = middleware(r.execHandler)
+		}
 		return nil
 	}
 }

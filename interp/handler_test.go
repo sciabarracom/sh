@@ -152,7 +152,13 @@ var modCases = []struct {
 		want:    "blocklisted: glob\n",
 	},
 	{
-		name:  "CoreutilCp",
+		name:  "CoreutilCpMissing",
+		execs: []interp.ExecHandlerFunc{coreutils.Handle, blocklistAllExec},
+		src:   "cp missing1 missing2",
+		want:  "stat missing1: no such file or directory\nexit status 1",
+	},
+	{
+		name:  "CoreutilCpChdir",
 		execs: []interp.ExecHandlerFunc{coreutils.Handle, blocklistAllExec},
 		src:   "cp missing1 missing2",
 		want:  "stat missing1: no such file or directory\nexit status 1",
