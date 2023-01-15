@@ -17,14 +17,10 @@ require (
 )
 
 require (
-	github.com/dustin/go-humanize v1.0.0 // indirect
-	github.com/google/goterm v0.0.0-20200907032337-555d40f16ae2 // indirect
 	github.com/kr/pretty v0.3.1 // indirect
 	github.com/kr/text v0.2.0 // indirect
-	github.com/pierrec/lz4/v4 v4.1.14 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	github.com/u-root/gobusybox/src v0.0.0-20220728145311-85dc1fd1bc75 // indirect
-	github.com/u-root/uio v0.0.0-20220204230159-dac05f7d2cb4 // indirect
-	golang.org/x/mod v0.6.0-dev.0.20220419223038-86c51ed26bb4 // indirect
-	golang.org/x/tools v0.1.12 // indirect
+	github.com/u-root/u-root v0.10.0 // indirect
 )
+
+replace github.com/mvdan/u-root-coreutils => /home/mvdan/git/u-root
