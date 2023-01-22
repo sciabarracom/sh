@@ -48,8 +48,7 @@ func atoi(s string) int {
 	return n
 }
 
-func (r *Runner) builtinCode(ctx context.Context, pos syntax.Pos, args []string) int {
-	name, args := args[0], args[1:]
+func (r *Runner) builtinCode(ctx context.Context, pos syntax.Pos, name string, args []string) int {
 	switch name {
 	case "true", ":":
 	case "false":
@@ -245,7 +244,7 @@ func (r *Runner) builtinCode(ctx context.Context, pos syntax.Pos, args []string)
 		if !isBuiltin(args[0]) {
 			return 1
 		}
-		return r.builtinCode(ctx, pos, args)
+		return r.builtinCode(ctx, pos, args[0], args[1:])
 	case "type":
 		anyNotFound := false
 		mode := ""
@@ -449,7 +448,7 @@ func (r *Runner) builtinCode(ctx context.Context, pos syntax.Pos, args []string)
 		}
 		if !show {
 			if isBuiltin(args[0]) {
-				return r.builtinCode(ctx, pos, args)
+				return r.builtinCode(ctx, pos, args[0], args[1:])
 			}
 			r.exec(ctx, args)
 			return r.exit
@@ -500,7 +499,7 @@ func (r *Runner) builtinCode(ctx context.Context, pos syntax.Pos, args []string)
 			if code := r.changeDir(ctx, newtop); code != 0 {
 				return code
 			}
-			r.builtinCode(ctx, syntax.Pos{}, []string{"dirs"})
+			r.builtinCode(ctx, syntax.Pos{}, "dirs", nil)
 		case 1:
 			if change {
 				if code := r.changeDir(ctx, args[0]); code != 0 {
@@ -511,7 +510,7 @@ func (r *Runner) builtinCode(ctx context.Context, pos syntax.Pos, args []string)
 				r.dirStack = append(r.dirStack, args[0])
 				swap()
 			}
-			r.builtinCode(ctx, syntax.Pos{}, []string{"dirs"})
+			r.builtinCode(ctx, syntax.Pos{}, "dirs", nil)
 		default:
 			r.errf("pushd: too many arguments\n")
 			return 2
@@ -538,7 +537,7 @@ func (r *Runner) builtinCode(ctx context.Context, pos syntax.Pos, args []string)
 			} else {
 				r.dirStack[len(r.dirStack)-1] = oldtop
 			}
-			r.builtinCode(ctx, syntax.Pos{}, []string{"dirs"})
+			r.builtinCode(ctx, syntax.Pos{}, "dirs", nil)
 		default:
 			r.errf("popd: invalid argument\n")
 			return 2
