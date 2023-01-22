@@ -23,7 +23,14 @@ func Handle(next interp.ExecHandlerFunc) interp.ExecHandlerFunc {
 		// TODO: hc.Dir, hc.Env
 		switch args[0] {
 		case "cp":
-			exit := cp.RunMain(args[1:], hc.Stdin, hc.Stdout, hc.Stderr)
+			runParams := cp.RunParams{
+				Dir:    hc.Dir,
+				Env:    nil, // TODO
+				Stdin:  hc.Stdin,
+				Stdout: hc.Stdout,
+				Stderr: hc.Stderr,
+			}
+			exit := cp.RunMain(runParams, args[1:]...)
 			if exit != 0 {
 				return interp.NewExitStatus(uint8(exit))
 			}

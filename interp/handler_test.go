@@ -220,7 +220,7 @@ var modCases = []struct {
 	{
 		name: "CoreutilCpMissing",
 		opts: []interp.RunnerOption{
-			interp.ExecHandlers(coreutils.Handle, blocklistAllExec),
+			interp.ExecHandlers(coreutils.Handle, testCoreutils, blocklistAllExec),
 		},
 		src:  "cp missing1 missing2",
 		want: "stat missing1: no such file or directory\nexit status 1",
@@ -228,15 +228,15 @@ var modCases = []struct {
 	{
 		name: "CoreutilCpChdir",
 		opts: []interp.RunnerOption{
-			interp.ExecHandlers(coreutils.Handle, blocklistAllExec),
+			interp.ExecHandlers(coreutils.Handle, testCoreutils, blocklistAllExec),
 		},
-		src:  "cp missing1 missing2",
-		want: "stat missing1: no such file or directory\nexit status 1",
+		src:  "mkdir sub; cd sub; echo foo >file1; cp file1 file2; cat file2",
+		want: "foo\n",
 	},
 	{
 		name: "CoreutilUnsupported",
 		opts: []interp.RunnerOption{
-			interp.ExecHandlers(coreutils.Handle, blocklistAllExec),
+			interp.ExecHandlers(coreutils.Handle, testCoreutils, blocklistAllExec),
 		},
 		src:  "du",
 		want: "blocklisted: du",
@@ -244,7 +244,7 @@ var modCases = []struct {
 	{
 		name: "CoreutilUnknown",
 		opts: []interp.RunnerOption{
-			interp.ExecHandlers(coreutils.Handle, blocklistAllExec),
+			interp.ExecHandlers(coreutils.Handle, testCoreutils, blocklistAllExec),
 		},
 		src:  "unknown args",
 		want: "blocklisted: unknown",

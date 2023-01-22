@@ -110,7 +110,7 @@ func TestMain(m *testing.M) {
 		runner, _ := interp.New(
 			interp.StdIO(os.Stdin, os.Stdout, os.Stderr),
 			interp.OpenHandler(testOpenHandler),
-			interp.ExecHandlers(testExecHandler),
+			interp.ExecHandlers(testCoreutils),
 		)
 		ctx := context.Background()
 		if err := runner.Run(ctx, file); err != nil {
@@ -3407,7 +3407,7 @@ func TestRunnerRun(t *testing.T) {
 				// interp.Env(expand.ListEnviron(append(os.Environ(),
 				// 	"FOO_INTERP_MISSING_NULL_BAR_INTERP_MISSING=foo_interp_missing\x00bar_interp_missing")...)),
 				interp.OpenHandler(testOpenHandler),
-				interp.ExecHandlers(testExecHandler),
+				interp.ExecHandlers(testCoreutils),
 			)
 			if err != nil {
 				t.Fatal(err)
@@ -3683,7 +3683,7 @@ var testBuiltinsMap = map[string]func(interp.HandlerContext, []string) error{
 	},
 }
 
-func testExecHandler(next interp.ExecHandlerFunc) interp.ExecHandlerFunc {
+func testCoreutils(next interp.ExecHandlerFunc) interp.ExecHandlerFunc {
 	return func(ctx context.Context, args []string) error {
 		if fn := testBuiltinsMap[args[0]]; fn != nil {
 			return fn(interp.HandlerCtx(ctx), args[1:])
@@ -3852,7 +3852,7 @@ func TestRunnerOpts(t *testing.T) {
 			r, err := interp.New(append(c.opts,
 				interp.StdIO(nil, &cb, &cb),
 				interp.OpenHandler(testOpenHandler),
-				interp.ExecHandlers(testExecHandler),
+				interp.ExecHandlers(testCoreutils),
 			)...)
 			if err != nil {
 				t.Fatal(err)
@@ -4066,7 +4066,7 @@ func TestRunnerResetFields(t *testing.T) {
 		interp.Params("-f", "--", "first", tdir, logPath),
 		interp.Dir(tdir),
 		interp.OpenHandler(testOpenHandler),
-		interp.ExecHandlers(testExecHandler),
+		interp.ExecHandlers(testCoreutils),
 	)
 	// Check that using option funcs and Runner fields directly is still
 	// kept by Reset.
