@@ -21,10 +21,9 @@ func Handle(next interp.ExecHandlerFunc) interp.ExecHandlerFunc {
 	return func(ctx context.Context, args []string) error {
 		hc := interp.HandlerCtx(ctx)
 		// TODO: hc.Dir, hc.Env
-		name, args := args[0], args[1:]
-		switch name {
+		switch args[0] {
 		case "cp":
-			exit := cp.RunMain(args, hc.Stdin, hc.Stdout, hc.Stderr)
+			exit := cp.RunMain(args[1:], hc.Stdin, hc.Stdout, hc.Stderr)
 			if exit != 0 {
 				return interp.NewExitStatus(uint8(exit))
 			}

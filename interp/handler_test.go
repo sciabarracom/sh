@@ -218,28 +218,36 @@ var modCases = []struct {
 		want: "blocklisted: glob\n",
 	},
 	{
-		name:  "CoreutilCpMissing",
-		execs: []interp.ExecHandlerFunc{coreutils.Handle, blocklistAllExec},
-		src:   "cp missing1 missing2",
-		want:  "stat missing1: no such file or directory\nexit status 1",
+		name: "CoreutilCpMissing",
+		opts: []interp.RunnerOption{
+			interp.ExecHandlers(coreutils.Handle, blocklistAllExec),
+		},
+		src:  "cp missing1 missing2",
+		want: "stat missing1: no such file or directory\nexit status 1",
 	},
 	{
-		name:  "CoreutilCpChdir",
-		execs: []interp.ExecHandlerFunc{coreutils.Handle, blocklistAllExec},
-		src:   "cp missing1 missing2",
-		want:  "stat missing1: no such file or directory\nexit status 1",
+		name: "CoreutilCpChdir",
+		opts: []interp.RunnerOption{
+			interp.ExecHandlers(coreutils.Handle, blocklistAllExec),
+		},
+		src:  "cp missing1 missing2",
+		want: "stat missing1: no such file or directory\nexit status 1",
 	},
 	{
-		name:  "CoreutilUnsupported",
-		execs: []interp.ExecHandlerFunc{coreutils.Handle, blocklistAllExec},
-		src:   "du",
-		want:  "blocklisted: du",
+		name: "CoreutilUnsupported",
+		opts: []interp.RunnerOption{
+			interp.ExecHandlers(coreutils.Handle, blocklistAllExec),
+		},
+		src:  "du",
+		want: "blocklisted: du",
 	},
 	{
-		name:  "CoreutilUnknown",
-		execs: []interp.ExecHandlerFunc{coreutils.Handle, blocklistAllExec},
-		src:   "unknown args",
-		want:  "blocklisted: unknown",
+		name: "CoreutilUnknown",
+		opts: []interp.RunnerOption{
+			interp.ExecHandlers(coreutils.Handle, blocklistAllExec),
+		},
+		src:  "unknown args",
+		want: "blocklisted: unknown",
 	},
 }
 
