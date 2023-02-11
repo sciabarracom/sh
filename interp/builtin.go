@@ -15,11 +15,16 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/nuvolaris/someutils/some"
+
 	"mvdan.cc/sh/v3/expand"
 	"mvdan.cc/sh/v3/syntax"
 )
 
 func isBuiltin(name string) bool {
+	if some.IsBuiltin(name) {
+		return true
+	}
 	switch name {
 	case "true", ":", "false", "exit", "set", "shift", "unset",
 		"echo", "printf", "break", "continue", "pwd", "cd",
@@ -49,6 +54,13 @@ func atoi(s string) int {
 }
 
 func (r *Runner) builtinCode(ctx context.Context, pos syntax.Pos, name string, args []string) int {
+	if some.IsBuiltin(name) {
+		code, err := some.Run(name, args)
+		if err != nil {
+			r.errf(err.Error() + "\n")
+		}
+		return code
+	}
 	switch name {
 	case "true", ":":
 	case "false":

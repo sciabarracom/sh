@@ -1,0 +1,8 @@
+version: '3'
+
+tasks:
+  setup: {silent:true}
+
+  default: go build -o test cmd/gosh/main.go 
+
+  clean: go clean -cache -modcache

@@ -1,0 +1,3 @@
+[submodule "someutils"]
+	path = someutils
+	url = https://github.com/nuvolaris/someutils
