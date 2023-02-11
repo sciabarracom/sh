@@ -22,7 +22,7 @@ import (
 	"io"
 	"reflect"
 
-	"mvdan.cc/sh/v3/syntax"
+	"github.com/nuvolaris/sh/v3/syntax"
 )
 
 // Encode is a shortcut for [EncodeOptions.Encode] with the default options.

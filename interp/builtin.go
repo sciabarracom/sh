@@ -15,11 +15,16 @@ import (
 	"strconv"
 	"strings"
 
-	"mvdan.cc/sh/v3/expand"
-	"mvdan.cc/sh/v3/syntax"
+	"github.com/nuvolaris/nuv/tools"
+
+	"github.com/nuvolaris/sh/v3/expand"
+	"github.com/nuvolaris/sh/v3/syntax"
 )
 
 func isBuiltin(name string) bool {
+	if tools.IsTool(name) {
+		return true
+	}
 	switch name {
 	case "true", ":", "false", "exit", "set", "shift", "unset",
 		"echo", "printf", "break", "continue", "pwd", "cd",
@@ -49,6 +54,16 @@ func atoi(s string) int {
 }
 
 func (r *Runner) builtinCode(ctx context.Context, pos syntax.Pos, name string, args []string) int {
+	if tools.IsTool(name) {
+		me := tools.GetNuvCmd()
+		if me == "" {
+			r.errf("both NuvCmd and NUVCMD are empty\n")
+			return 1
+		}
+		cmd := append([]string{me, "-" + name}, args...)
+		r.exec(ctx, cmd)
+		return r.exit
+	}
 	switch name {
 	case "true", ":":
 	case "false":

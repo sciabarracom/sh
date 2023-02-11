@@ -8,7 +8,7 @@ import (
 	"io"
 	"testing"
 
-	"mvdan.cc/sh/v3/interp"
+	"github.com/nuvolaris/sh/v3/interp"
 )
 
 // Each test has an even number of strings, which form input-output pairs for
