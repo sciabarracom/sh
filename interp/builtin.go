@@ -15,6 +15,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/nuvolaris/nuv/tools"
 	"github.com/nuvolaris/someutils/some"
 
 	"mvdan.cc/sh/v3/expand"
@@ -54,8 +55,8 @@ func atoi(s string) int {
 }
 
 func (r *Runner) builtinCode(ctx context.Context, pos syntax.Pos, name string, args []string) int {
-	if some.IsBuiltin(name) {
-		code, err := some.Run(name, args)
+	if tools.IsTool(name) {
+		code, err := tools.RunTool(name, args)
 		if err != nil {
 			r.errf(err.Error() + "\n")
 		}
