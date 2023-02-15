@@ -13,4 +13,5 @@ vendor/
 
 .git-hooks/
 .vscode/
-test
+gosh
+

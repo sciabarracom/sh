@@ -7,8 +7,7 @@ require (
 	github.com/frankban/quicktest v1.14.4
 	github.com/google/go-cmp v0.5.9
 	github.com/google/renameio/v2 v2.0.0
-	github.com/nuvolaris/nuv v0.0.0-20230213212742-347eccf9d40a
-	github.com/nuvolaris/someutils v0.0.0-20230211182652-9b97c44bfdad
+	github.com/nuvolaris/nuv v0.0.0-20230215220442-4cae638a8901
 	github.com/pkg/diff v0.0.0-20210226163009-20ebb0f2a09e
 	github.com/rogpeppe/go-internal v1.9.0
 	golang.org/x/sync v0.1.0
@@ -35,9 +34,7 @@ require (
 	github.com/joho/godotenv v1.4.0 // indirect
 	github.com/kr/pretty v0.3.1 // indirect
 	github.com/kr/text v0.2.0 // indirect
-	github.com/laher/someutils v0.0.0-20140419105303-b27df3fbdaec // indirect
 	github.com/laher/uggo v0.0.0-20140418102112-0ad25fe11c5b // indirect
-	github.com/laher/wget-go v0.5.0 // indirect
 	github.com/logrusorgru/aurora v0.0.0-20200102142835-e9ef32dff381 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.16 // indirect
@@ -49,6 +46,7 @@ require (
 	github.com/nojima/httpie-go v0.7.0 // indirect
 	github.com/nuvolaris/openwhisk-cli/commands v0.0.0-20221227222349-fba31e174b7e // indirect
 	github.com/nuvolaris/openwhisk-cli/wski18n v0.0.0-20221227222349-fba31e174b7e // indirect
+	github.com/nuvolaris/someutils v0.0.0-20230215214008-863dfc0bf05f // indirect
 	github.com/nuvolaris/task/cmd/taskmain/v3 v3.0.0-20230101152216-23ac3198e23d // indirect
 	github.com/pborman/getopt v0.0.0-20190409184431-ee0cd42419d3 // indirect
 	github.com/pelletier/go-toml v1.8.1 // indirect
