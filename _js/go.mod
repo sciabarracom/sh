@@ -2,7 +2,7 @@ module shjs
 
 go 1.18
 
-replace mvdan.cc/sh/v3 => ../
+replace github.com/nuvolaris/sh/v3 => ../
 
 require (
 	github.com/gopherjs/gopherjs v1.17.2
