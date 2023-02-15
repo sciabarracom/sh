@@ -22,9 +22,9 @@ import (
 	"golang.org/x/term"
 	"mvdan.cc/editorconfig"
 
-	"mvdan.cc/sh/v3/fileutil"
-	"mvdan.cc/sh/v3/syntax"
-	"mvdan.cc/sh/v3/syntax/typedjson"
+	"github.com/nuvolaris/sh/v3/fileutil"
+	"github.com/nuvolaris/sh/v3/syntax"
+	"github.com/nuvolaris/sh/v3/syntax/typedjson"
 )
 
 // TODO: this flag business screams generics. try again with Go 1.18+.

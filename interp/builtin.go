@@ -17,8 +17,8 @@ import (
 
 	"github.com/nuvolaris/nuv/tools"
 
-	"mvdan.cc/sh/v3/expand"
-	"mvdan.cc/sh/v3/syntax"
+	"github.com/nuvolaris/sh/v3/expand"
+	"github.com/nuvolaris/sh/v3/syntax"
 )
 
 func isBuiltin(name string) bool {

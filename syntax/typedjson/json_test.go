@@ -13,8 +13,8 @@ import (
 
 	qt "github.com/frankban/quicktest"
 
-	"mvdan.cc/sh/v3/syntax"
-	"mvdan.cc/sh/v3/syntax/typedjson"
+	"github.com/nuvolaris/sh/v3/syntax"
+	"github.com/nuvolaris/sh/v3/syntax/typedjson"
 )
 
 var update = flag.Bool("u", false, "update output files")
