@@ -61,7 +61,6 @@ func (r *Runner) builtinCode(ctx context.Context, pos syntax.Pos, name string, a
 			return 1
 		}
 		cmd := append([]string{me, "-" + name}, args...)
-		fmt.Println(cmd)
 		r.exec(ctx, cmd)
 		return r.exit
 	}
