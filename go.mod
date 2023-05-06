@@ -7,7 +7,7 @@ require (
 	github.com/frankban/quicktest v1.14.4
 	github.com/google/go-cmp v0.5.9
 	github.com/google/renameio/v2 v2.0.0
-	github.com/nuvolaris/nuv v0.0.0-20230427175103-4f5b817a3a40
+	github.com/nuvolaris/nuv v0.0.0-20230505222055-3c2217d18e25
 	github.com/pkg/diff v0.0.0-20210226163009-20ebb0f2a09e
 	github.com/rogpeppe/go-internal v1.9.0
 	golang.org/x/sync v0.1.0
@@ -75,12 +75,12 @@ require (
 	github.com/nojima/httpie-go v0.7.0 // indirect
 	github.com/nuvolaris/envsubst/cmd/envsubstmain v0.0.0-20230316170831-d78a244e9675 // indirect
 	github.com/nuvolaris/goawk v1.21.1-0.20230314201833-d0931fd55c2c // indirect
-	github.com/nuvolaris/goja/gojamain v0.0.0-20230315181922-61fd5fa112c9 // indirect
+	github.com/nuvolaris/goja/gojamain v0.0.0-20230504161530-a973bab4a652 // indirect
 	github.com/nuvolaris/openwhisk-cli/commands v0.0.0-20221227222349-fba31e174b7e // indirect
 	github.com/nuvolaris/openwhisk-cli/wski18n v0.0.0-20221227222349-fba31e174b7e // indirect
 	github.com/nuvolaris/someutils v0.0.0-20230406090008-39e94b70e1ae // indirect
 	github.com/nuvolaris/task/cmd/taskmain/v3 v3.0.0-20230402183349-40db8d138726 // indirect
-	github.com/nuvolaris/task/v3 v3.9.3-0.20230427174724-3b60728d4719 // indirect
+	github.com/nuvolaris/task/v3 v3.9.3-0.20230427192803-c799c6ab1de6 // indirect
 	github.com/pborman/getopt v0.0.0-20190409184431-ee0cd42419d3 // indirect
 	github.com/pelletier/go-toml v1.8.1 // indirect
 	github.com/pjbgf/sha1cd v0.2.3 // indirect
