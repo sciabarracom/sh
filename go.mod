@@ -7,12 +7,12 @@ require (
 	github.com/frankban/quicktest v1.14.4
 	github.com/google/go-cmp v0.5.9
 	github.com/google/renameio/v2 v2.0.0
-	github.com/nuvolaris/nuv v0.0.0-20230505222055-3c2217d18e25
+	github.com/nuvolaris/nuv v0.0.0-20230718103746-3f654e203240
 	github.com/pkg/diff v0.0.0-20210226163009-20ebb0f2a09e
 	github.com/rogpeppe/go-internal v1.9.0
 	golang.org/x/sync v0.1.0
 	golang.org/x/sys v0.5.0
-	golang.org/x/term v0.3.0
+	golang.org/x/term v0.5.0
 	mvdan.cc/editorconfig v0.2.0
 )
 
@@ -20,6 +20,7 @@ require (
 	code.cloudfoundry.org/bytefmt v0.0.0-20200131002437-cf55d5288a48 // indirect
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/Masterminds/semver v1.5.0 // indirect
+	github.com/Masterminds/sprig v2.22.0+incompatible // indirect
 	github.com/Microsoft/go-winio v0.5.2 // indirect
 	github.com/ProtonMail/go-crypto v0.0.0-20221026131551-cf6655e29de4 // indirect
 	github.com/VividCortex/ewma v1.1.1 // indirect
@@ -57,7 +58,9 @@ require (
 	github.com/inconshreveable/mousetrap v1.0.1 // indirect
 	github.com/itchyny/gojq v0.12.12 // indirect
 	github.com/itchyny/timefmt-go v0.1.5 // indirect
+	github.com/jaytaylor/go-find v0.0.0-20230430153105-548b1a88d19c // indirect
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
+	github.com/jessevdk/go-flags v1.5.0 // indirect
 	github.com/joho/godotenv v1.5.1 // indirect
 	github.com/kevinburke/ssh_config v1.2.0 // indirect
 	github.com/kr/pretty v0.3.1 // indirect
@@ -68,26 +71,33 @@ require (
 	github.com/mattn/go-isatty v0.0.17 // indirect
 	github.com/mattn/go-runewidth v0.0.14 // indirect
 	github.com/mattn/go-zglob v0.0.4 // indirect
+	github.com/mitchellh/copystructure v1.2.0 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/hashstructure/v2 v2.0.2 // indirect
+	github.com/mitchellh/reflectwalk v1.0.2 // indirect
 	github.com/mtibben/androiddnsfix v0.0.0-20200907095054-ff0280446354 // indirect
 	github.com/nicksnyder/go-i18n v1.10.1 // indirect
 	github.com/nojima/httpie-go v0.7.0 // indirect
-	github.com/nuvolaris/envsubst/cmd/envsubstmain v0.0.0-20230316170831-d78a244e9675 // indirect
+	github.com/nuvolaris/envsubst/cmd/envsubstmain v0.0.0-20230603163828-10ca029cdb58 // indirect
+	github.com/nuvolaris/go-replace v0.0.0-20230515190028-12766da1824c // indirect
 	github.com/nuvolaris/goawk v1.21.1-0.20230314201833-d0931fd55c2c // indirect
-	github.com/nuvolaris/goja/gojamain v0.0.0-20230504161530-a973bab4a652 // indirect
-	github.com/nuvolaris/openwhisk-cli/commands v0.0.0-20221227222349-fba31e174b7e // indirect
+	github.com/nuvolaris/goja v0.0.0-20230527133949-2939724446aa // indirect
+	github.com/nuvolaris/goja/gojamain v0.0.0-20230527135333-d302d90d3283 // indirect
+	github.com/nuvolaris/goja_nodejs v0.0.0-20230527135110-3aa37178bb6c // indirect
+	github.com/nuvolaris/openwhisk-cli/commands v0.0.0-20230615104118-d593f7d6576f // indirect
 	github.com/nuvolaris/openwhisk-cli/wski18n v0.0.0-20221227222349-fba31e174b7e // indirect
 	github.com/nuvolaris/someutils v0.0.0-20230406090008-39e94b70e1ae // indirect
-	github.com/nuvolaris/task/cmd/taskmain/v3 v3.0.0-20230402183349-40db8d138726 // indirect
-	github.com/nuvolaris/task/v3 v3.9.3-0.20230427192803-c799c6ab1de6 // indirect
+	github.com/nuvolaris/task/cmd/taskmain/v3 v3.0.0-20230622105149-f79e6416ff6e // indirect
+	github.com/nuvolaris/task/v3 v3.9.3-0.20230622101932-af3535e30027 // indirect
 	github.com/pborman/getopt v0.0.0-20190409184431-ee0cd42419d3 // indirect
 	github.com/pelletier/go-toml v1.8.1 // indirect
 	github.com/pjbgf/sha1cd v0.2.3 // indirect
 	github.com/pkg/browser v0.0.0-20210911075715-681adbf594b8 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/radovskyb/watcher v1.0.7 // indirect
+	github.com/remeh/sizedwaitgroup v1.0.0 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
+	github.com/ryanuber/go-glob v1.0.0 // indirect
 	github.com/sajari/fuzzy v1.0.0 // indirect
 	github.com/sergi/go-diff v1.1.0 // indirect
 	github.com/skeema/knownhosts v1.1.0 // indirect
@@ -96,10 +106,10 @@ require (
 	github.com/vbauerster/mpb/v5 v5.0.2 // indirect
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
 	github.com/zalando/go-keyring v0.2.2 // indirect
-	golang.org/x/crypto v0.3.0 // indirect
+	golang.org/x/crypto v0.6.0 // indirect
 	golang.org/x/exp v0.0.0-20230213192124-5e25df0256eb // indirect
-	golang.org/x/net v0.4.0 // indirect
-	golang.org/x/text v0.5.0 // indirect
+	golang.org/x/net v0.6.0 // indirect
+	golang.org/x/text v0.7.0 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
