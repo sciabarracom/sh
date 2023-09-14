@@ -1,8 +1,10 @@
-version: '3'
+version: "3"
 
 tasks:
-  setup: {silent:true}
+  setup: { silent:true }
 
-  build: go build -o gosh cmd/gosh/main.go 
+  build: go build -o gosh cmd/gosh/main.go
 
   clean: go clean -cache -modcache
+
+  test: go test -v ./...
