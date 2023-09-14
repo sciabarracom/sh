@@ -21,8 +21,10 @@ import (
 	"github.com/nuvolaris/sh/v3/syntax"
 )
 
+var NuvIntegrationEnabled = true
+
 func isBuiltin(name string) bool {
-	if tools.IsTool(name) {
+	if tools.IsTool(name) && NuvIntegrationEnabled {
 		return true
 	}
 	switch name {
@@ -54,10 +56,10 @@ func atoi(s string) int {
 }
 
 func (r *Runner) builtinCode(ctx context.Context, pos syntax.Pos, name string, args []string) int {
-	if tools.IsTool(name) {
+	if tools.IsTool(name) && NuvIntegrationEnabled {
 		me := tools.GetNuvCmd()
 		if me == "" {
-			r.errf("both NuvCmd and NUVCMD are empty\n")
+			r.errf("both NuvCmd and NUVCMD are empty %s\n", name)
 			return 1
 		}
 		cmd := append([]string{me, "-" + name}, args...)
