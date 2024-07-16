@@ -21,4 +21,4 @@ require (
 	golang.org/x/tools v0.17.0 // indirect
 )
 
-replace mvdan.cc/sh/v3 => github.com/nuvolaris/sh/v3 v3.8.0-openserverless
+replace mvdan.cc/sh/v3 => github.com/nuvolaris/sh/v3 v3.8.0-openserverless.1
