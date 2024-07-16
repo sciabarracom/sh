@@ -22,13 +22,7 @@ require (
 )
 
 
-replace mvdan.cc/sh/v3/expand => github.com/nuvolaris/sh/v3/expand v3.8.0-openserverless.2
-replace mvdan.cc/sh/v3/fileutils => github.com/nuvolaris/sh/v3/fileutil v3.8.0-openserverless.2
-replace mvdan.cc/sh/v3/interp => github.com/nuvolaris/sh/v3/interp v3.8.0-openserverless.2
-replace mvdan.cc/sh/v3/pattern => github.com/nuvolaris/sh/v3/pattern v3.8.0-openserverless.2
-replace mvdan.cc/sh/v3/shell => github.com/nuvolaris/sh/v3/shell v3.8.0-openserverless.2
-replace mvdan.cc/sh/v3/syntax => github.com/nuvolaris/sh/v3/syntax v3.8.0-openserverless.2
-replace mvdan.cc/sh/v3/syntax/typedjson => github.com/nuvolaris/sh/v3/syntax/typedjson v3.8.0-openserverless.2
+replace mvdan.cc/sh/v3 => github.com/nuvolaris/sh/ v3.8.0-openserverless.3
 
 
 
