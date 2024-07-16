@@ -7,9 +7,8 @@ then
        	FROM="$TO" 
 	TO="$TMP"
 fi
-find . -name \*.go -o -name go.mod | while read file 
-do
-	if sed -i "s!$FROM!$TO!" $file 
-        then echo "fixed $file"
-	fi
+find . \( -name \*.go -o -name go.modi \) | while read file 
+do echo $file
+   sed -i "s!$FROM!$TO!" $file 
 done
+go mod tidy
