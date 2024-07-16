@@ -22,7 +22,7 @@ require (
 )
 
 
-replace mvdan.cc/sh/v3 => github.com/nuvolaris/sh/ openserverless-v3.8.0.3
+replace mvdan.cc/sh/v3 => github.com/nuvolaris/sh/ openserverless-v3.8.0-4
 
 
 
