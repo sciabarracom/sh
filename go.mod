@@ -20,3 +20,5 @@ require (
 	github.com/kr/text v0.2.0 // indirect
 	golang.org/x/tools v0.17.0 // indirect
 )
+
+replace mvdan.cc/sh/v3 => github.com/nuvolaris/sh/v3 v3.8.0-openserverless
