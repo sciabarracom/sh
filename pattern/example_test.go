@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"regexp"
 
-	"mvdan.cc/sh/v3/pattern"
+	"github.com/openserverless-mvdansh-fork/v3/pattern"
 )
 
 func ExampleRegexp() {

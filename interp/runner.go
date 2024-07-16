@@ -20,9 +20,9 @@ import (
 	"sync"
 	"time"
 
-	"mvdan.cc/sh/v3/expand"
-	"mvdan.cc/sh/v3/pattern"
-	"mvdan.cc/sh/v3/syntax"
+	"github.com/openserverless-mvdansh-fork/v3/expand"
+	"github.com/openserverless-mvdansh-fork/v3/pattern"
+	"github.com/openserverless-mvdansh-fork/v3/syntax"
 )
 
 const (

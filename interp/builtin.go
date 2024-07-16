@@ -15,8 +15,8 @@ import (
 	"strconv"
 	"strings"
 
-	"mvdan.cc/sh/v3/expand"
-	"mvdan.cc/sh/v3/syntax"
+	"github.com/openserverless-mvdansh-fork/v3/expand"
+	"github.com/openserverless-mvdansh-fork/v3/syntax"
 )
 
 func isBuiltin(name string) bool {

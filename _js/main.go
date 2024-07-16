@@ -10,7 +10,7 @@ import (
 
 	"github.com/gopherjs/gopherjs/js"
 
-	"mvdan.cc/sh/v3/syntax"
+	"github.com/openserverless-mvdansh-fork/v3/syntax"
 )
 
 func main() {

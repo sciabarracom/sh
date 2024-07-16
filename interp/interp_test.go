@@ -20,9 +20,9 @@ import (
 	"testing"
 	"time"
 
-	"mvdan.cc/sh/v3/expand"
-	"mvdan.cc/sh/v3/interp"
-	"mvdan.cc/sh/v3/syntax"
+	"github.com/openserverless-mvdansh-fork/v3/expand"
+	"github.com/openserverless-mvdansh-fork/v3/interp"
+	"github.com/openserverless-mvdansh-fork/v3/syntax"
 )
 
 // runnerRunTimeout is the context timeout used by any tests calling Runner.Run.

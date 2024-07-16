@@ -12,8 +12,8 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"mvdan.cc/sh/v3/pattern"
-	"mvdan.cc/sh/v3/syntax"
+	"github.com/openserverless-mvdansh-fork/v3/pattern"
+	"github.com/openserverless-mvdansh-fork/v3/syntax"
 )
 
 func nodeLit(node syntax.Node) string {
