@@ -27,3 +27,5 @@ golang.org/x/tools v0.17.0 h1:FvmRgNOcs3kOa+T20R1uhfP9F6HgG2mfxDv1vrx1Htc=
 golang.org/x/tools v0.17.0/go.mod h1:xsh6VxdV005rRVaS6SSAf9oiAqljS7UZUacMZ8Bnsps=
 mvdan.cc/editorconfig v0.2.1-0.20231228180347-1925077f8eb2 h1:8nmqQGVnHUtHuT+yvuA49lQK0y5il5IOr2PtCBkDI2M=
 mvdan.cc/editorconfig v0.2.1-0.20231228180347-1925077f8eb2/go.mod h1:r8RiQJRtzrPrZdcdEs5VCMqvRxAzYDUu9a4S9z7fKh8=
+mvdan.cc/sh/v3 v3.8.0 h1:ZxuJipLZwr/HLbASonmXtcvvC9HXY9d2lXZHnKGjFc8=
+mvdan.cc/sh/v3 v3.8.0/go.mod h1:w04623xkgBVo7/IUK89E0g8hBykgEpN0vgOj3RJr6MY=

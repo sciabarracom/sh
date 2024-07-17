@@ -8,7 +8,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/openserverless-mvdansh-fork/v3/syntax"
+	"github.com/sciabarracom/openserverless-mvdansh-fork/v3/syntax"
 )
 
 func Example() {

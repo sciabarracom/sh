@@ -46,7 +46,7 @@ type DocType struct {
 
 func main() {
 	cfg := &packages.Config{Mode: packages.LoadSyntax}
-	pkgs, err := packages.Load(cfg, "github.com/openserverless-mvdansh-fork/v3/syntax")
+	pkgs, err := packages.Load(cfg, "github.com/sciabarracom/openserverless-mvdansh-fork/v3/syntax")
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)

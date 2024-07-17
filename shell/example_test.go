@@ -6,7 +6,7 @@ package shell_test
 import (
 	"fmt"
 
-	"github.com/openserverless-mvdansh-fork/v3/shell"
+	"github.com/sciabarracom/openserverless-mvdansh-fork/v3/shell"
 )
 
 func ExampleExpand() {

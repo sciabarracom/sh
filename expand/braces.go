@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/openserverless-mvdansh-fork/v3/syntax"
+	"github.com/sciabarracom/openserverless-mvdansh-fork/v3/syntax"
 )
 
 // Braces performs brace expansion on a word, given that it contains any

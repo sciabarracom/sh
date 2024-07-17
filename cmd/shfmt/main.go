@@ -23,9 +23,9 @@ import (
 	"golang.org/x/term"
 	"mvdan.cc/editorconfig"
 
-	"github.com/openserverless-mvdansh-fork/v3/fileutil"
-	"github.com/openserverless-mvdansh-fork/v3/syntax"
-	"github.com/openserverless-mvdansh-fork/v3/syntax/typedjson"
+	"github.com/sciabarracom/openserverless-mvdansh-fork/v3/fileutil"
+	"github.com/sciabarracom/openserverless-mvdansh-fork/v3/syntax"
+	"github.com/sciabarracom/openserverless-mvdansh-fork/v3/syntax/typedjson"
 )
 
 type multiFlag[T any] struct {

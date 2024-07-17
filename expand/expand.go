@@ -18,8 +18,8 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/openserverless-mvdansh-fork/v3/pattern"
-	"github.com/openserverless-mvdansh-fork/v3/syntax"
+	"github.com/sciabarracom/openserverless-mvdansh-fork/v3/pattern"
+	"github.com/sciabarracom/openserverless-mvdansh-fork/v3/syntax"
 )
 
 // A Config specifies details about how shell expansion should be performed. The

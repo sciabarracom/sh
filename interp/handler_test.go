@@ -19,8 +19,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/openserverless-mvdansh-fork/v3/interp"
-	"github.com/openserverless-mvdansh-fork/v3/syntax"
+	"github.com/sciabarracom/openserverless-mvdansh-fork/v3/interp"
+	"github.com/sciabarracom/openserverless-mvdansh-fork/v3/syntax"
 )
 
 func blocklistOneExec(name string) func(interp.ExecHandlerFunc) interp.ExecHandlerFunc {

@@ -6,7 +6,7 @@ package interp
 import (
 	"fmt"
 
-	"github.com/openserverless-mvdansh-fork/v3/syntax"
+	"github.com/sciabarracom/openserverless-mvdansh-fork/v3/syntax"
 )
 
 const illegalTok = 0

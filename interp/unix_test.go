@@ -15,7 +15,7 @@ import (
 	"testing"
 
 	"github.com/creack/pty"
-	"github.com/openserverless-mvdansh-fork/v3/interp"
+	"github.com/sciabarracom/openserverless-mvdansh-fork/v3/interp"
 )
 
 func TestRunnerTerminalStdIO(t *testing.T) {

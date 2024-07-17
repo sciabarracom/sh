@@ -13,8 +13,8 @@ import (
 
 	qt "github.com/frankban/quicktest"
 
-	"github.com/openserverless-mvdansh-fork/v3/syntax"
-	"github.com/openserverless-mvdansh-fork/v3/syntax/typedjson"
+	"github.com/sciabarracom/openserverless-mvdansh-fork/v3/syntax"
+	"github.com/sciabarracom/openserverless-mvdansh-fork/v3/syntax/typedjson"
 )
 
 var update = flag.Bool("u", false, "update output files")

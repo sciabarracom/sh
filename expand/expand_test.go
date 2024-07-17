@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/openserverless-mvdansh-fork/v3/syntax"
+	"github.com/sciabarracom/openserverless-mvdansh-fork/v3/syntax"
 )
 
 func parseWord(t *testing.T, src string) *syntax.Word {

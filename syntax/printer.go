@@ -12,7 +12,7 @@ import (
 	"text/tabwriter"
 	"unicode"
 
-	"github.com/openserverless-mvdansh-fork/v3/fileutil"
+	"github.com/sciabarracom/openserverless-mvdansh-fork/v3/fileutil"
 )
 
 // PrinterOption is a function which can be passed to NewPrinter

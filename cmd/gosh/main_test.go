@@ -8,7 +8,7 @@ import (
 	"io"
 	"testing"
 
-	"github.com/openserverless-mvdansh-fork/v3/interp"
+	"github.com/sciabarracom/openserverless-mvdansh-fork/v3/interp"
 )
 
 // Each test has an even number of strings, which form input-output pairs for

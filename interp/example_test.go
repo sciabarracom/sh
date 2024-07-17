@@ -11,9 +11,9 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/openserverless-mvdansh-fork/v3/expand"
-	"github.com/openserverless-mvdansh-fork/v3/interp"
-	"github.com/openserverless-mvdansh-fork/v3/syntax"
+	"github.com/sciabarracom/openserverless-mvdansh-fork/v3/expand"
+	"github.com/sciabarracom/openserverless-mvdansh-fork/v3/interp"
+	"github.com/sciabarracom/openserverless-mvdansh-fork/v3/syntax"
 )
 
 func Example() {

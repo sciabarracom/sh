@@ -6,7 +6,7 @@ import (
 	"io"
 	"strings"
 
-	"github.com/openserverless-mvdansh-fork/v3/syntax"
+	"github.com/sciabarracom/openserverless-mvdansh-fork/v3/syntax"
 )
 
 // tracer prints expressions like a shell would do if its

@@ -1,6 +1,6 @@
 # any suggestion how to avoid this rename and use just replaces in go.mod is welcome
 FROM="mvdan.cc/sh"
-TO="github.com/openserverless-mvdansh-fork"
+TO="github.com/sciabarracom/openserverless-mvdansh-fork"
 if test -n "$1"
 then 
 	TMP="$FROM"

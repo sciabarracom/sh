@@ -14,8 +14,8 @@ import (
 
 	"golang.org/x/term"
 
-	"github.com/openserverless-mvdansh-fork/v3/interp"
-	"github.com/openserverless-mvdansh-fork/v3/syntax"
+	"github.com/sciabarracom/openserverless-mvdansh-fork/v3/interp"
+	"github.com/sciabarracom/openserverless-mvdansh-fork/v3/syntax"
 )
 
 var command = flag.String("c", "", "command to be executed")

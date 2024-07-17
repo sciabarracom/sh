@@ -12,8 +12,8 @@ import (
 
 	"golang.org/x/term"
 
-	"github.com/openserverless-mvdansh-fork/v3/expand"
-	"github.com/openserverless-mvdansh-fork/v3/syntax"
+	"github.com/sciabarracom/openserverless-mvdansh-fork/v3/expand"
+	"github.com/sciabarracom/openserverless-mvdansh-fork/v3/syntax"
 )
 
 // non-empty string is true, empty string is false

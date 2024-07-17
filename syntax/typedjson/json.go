@@ -22,7 +22,7 @@ import (
 	"io"
 	"reflect"
 
-	"github.com/openserverless-mvdansh-fork/v3/syntax"
+	"github.com/sciabarracom/openserverless-mvdansh-fork/v3/syntax"
 )
 
 // Encode is a shortcut for [EncodeOptions.Encode] with the default options.
