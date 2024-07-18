@@ -15,11 +15,11 @@ import (
 	"strconv"
 	"strings"
 
-	"mvdan.cc/sh/v3/expand"
-	"mvdan.cc/sh/v3/syntax"
+	"github.com/sciabarracom/sh/v3/expand"
+	"github.com/sciabarracom/sh/v3/syntax"
 )
 
-func isBuiltin(name string) bool {
+func _isBuiltin(name string) bool {
 	switch name {
 	case "true", ":", "false", "exit", "set", "shift", "unset",
 		"echo", "printf", "break", "continue", "pwd", "cd",
@@ -48,7 +48,7 @@ func atoi(s string) int {
 	return n
 }
 
-func (r *Runner) builtinCode(ctx context.Context, pos syntax.Pos, name string, args []string) int {
+func (r *Runner) _builtinCode(ctx context.Context, pos syntax.Pos, name string, args []string) int {
 	switch name {
 	case "true", ":":
 	case "false":
