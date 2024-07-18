@@ -19,8 +19,8 @@ import (
 	"testing"
 	"time"
 
-	"mvdan.cc/sh/v3/interp"
-	"mvdan.cc/sh/v3/syntax"
+	"github.com/sciabarracom/sh/v3/interp"
+	"github.com/sciabarracom/sh/v3/syntax"
 )
 
 func blocklistOneExec(name string) func(interp.ExecHandlerFunc) interp.ExecHandlerFunc {
