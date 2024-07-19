@@ -20,9 +20,9 @@ import (
 	"sync"
 	"time"
 
-	"mvdan.cc/sh/v3/expand"
-	"mvdan.cc/sh/v3/pattern"
-	"mvdan.cc/sh/v3/syntax"
+	"github.com/sciabarracom/sh/v3/expand"
+	"github.com/sciabarracom/sh/v3/pattern"
+	"github.com/sciabarracom/sh/v3/syntax"
 )
 
 const (
